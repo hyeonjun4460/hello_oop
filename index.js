@@ -110,7 +110,7 @@ const yu = new Human('yu', 1, 2)
 
 // 5-1. 생성자 함수를 이용한 상속 : class 상속의 메커니즘 쪼개기
 function HumanPlus(name, first, second, third) {
-    // class의  extends와 super 역할을 함.
+    // class의  extends와 super 역할을 함. Human이란 생성자 함수를 call을 이용해 실행 context를 HumanPlus로 맞춰 Human의 property를 공유하게 함.
     Human.call(this, name, first, second)
     this.third = third
 }
