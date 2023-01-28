@@ -55,7 +55,8 @@ oop tutorial with 생활코딩 JavaScript Object Oriented Programming
 
 - javscript에서 객체 생성자를 생성하면(함수도 객체이므로 포함이다) 생성자와 함께 생성자의 prototype이 생성된다.
 - 이 때, 생성자는 prototype, prototype은 constructor라는 property를 가지게 되고 각 property를 통해 상호 참조한다.
-- 생성자를 통해 생성된 "객체"는 **proto**라는 property를 통해 생성자의 prototype을 참조한다.
+- 이 떄 constructor는 생성자 함수를 지칭하므로, 객체 생성자의 출처 역할을 할 수 있다. 즉, constructor는 객체 생성자임과 동시에, 객체 생성자의 출처를 파악할 수 있는 역할을 한다.
+- 생성자를 통해 생성된 "객체"는 **proto**라는 property를 통해 생성자의 prototype을 참조한다. (prototype도 객체이므로, **proto**를 가지고 있다.)
 - prototype에는 생성자를 통해 생성될 객체들이 공유할 기본적인 property와 method에 대한 데이터가 담겨있다.
 - 즉, class에서 선언하는 method는 이 prototpye에 저장되는 것이다.
 - 객체에서 객체에 선언되지 않은 method를 실행할 수 있는 것은 이 prototype을 참조하기 떄문이다.
