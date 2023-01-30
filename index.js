@@ -1,3 +1,32 @@
+// 객체 기본
+
+// 0. 객체의 구성
+const sampleObj = {
+    // data property
+    id: 1,
+    name: 'kim',
+
+    // accessor property (get,set) 
+    get intro() {
+        return this.__intro
+    },
+    set intro(age) {
+        this.__intro = this.id + this.name + age
+    },
+
+    // method
+    hello: function () {
+        return `hello ${this.name}`
+
+    }
+}
+console.group('sampleObj')
+console.log(sampleObj)
+sampleObj.intro = '15' // set
+console.log(sampleObj.intro) // get
+console.log(sampleObj.hello()) // method
+console.groupEnd()
+
 // 1. class를 이용한 객체 생성
 class Person {
     // constructor: 객체 생성 시 자동으로 실행되며, 객체의 기본 속성을 생성하는 역할. 생성자 함수와 동일
