@@ -51,7 +51,7 @@ class BaseballTeam {
         return this.__players
     }
 
-    // 함수를 property로 넣기
+    // 함수를 property로 넣기 (정확히는 static으로 property가 아니라 class 자체에 메소드 저장)
     // hello = () => {
     //     return 'hi'
     // }
@@ -81,6 +81,7 @@ console.groupEnd()
 
 // 2. 클래스를 이용한 상속
 class SportsTeam {
+    static teamList = []
     constructor(category, manager, location) {
         this.category = category
         this.manager = manager
@@ -102,6 +103,28 @@ class SportsTeam {
     getPlayerCount() {
         if (!this.__playerList) { throw new Error('선수 먼저 등록해주세요') }
         return this.__playerList.length
+    }
+
+    static createTeam(category, manager, location) {
+        let newTeam
+        if (category === 'soccer') {
+            newTeam = new SoccerTeam(category, manager, location)
+        }
+        // static이 아니라면, 클래스 자체에 내장되어 있지 않으므로 teamList 참조 불가
+        this.teamList.push(newTeam)
+        return newTeam
+    }
+
+    static getTeamList() {
+        return this.teamList
+    }
+    static deleteTeam(team) {
+        this.teamList = this.teamList.filter((data) => {
+            console.log('compare', team, data)
+            if (data !== team) return data
+        })
+        return `${team.manager}님의 팀 삭제 완료`
+
     }
 }
 
@@ -131,6 +154,7 @@ class SoccerTeam extends SportsTeam {
         }
         return this.__playerList
     }
+
 }
 
 console.group('-----------------클래스를 이용한 상속')
@@ -151,4 +175,20 @@ console.log(fcEagles.getPlayersStat()) // method in child class
 console.log(fcEagles.getPlayerCount()) // method in parent class
 console.groupEnd()
 
+// 3. static
+// prototype이 아니라 class 함수 자체에 method, property를 저장할 때 사용
+// 클래스 자체에 저장된 것이므로, 외부 코드에서도 static한 method나 property는 사용할 수 있음.
+// 주로 클래스로 생성한 객체 인스턴스 단위가 아니라 클래스 자체에서의 작업을 위해 사용
+//  ex. 객체를 생성하는 factory 메소드
+console.group('---------------static')
+// static이 붙으면 class 자체의 property, 붙지 않으면 객체 instance의 property로 취급된다.
+const team = new SportsTeam('baseball', 'se', 'seoul')
+console.log(Object.getOwnPropertyNames(SportsTeam)) // static이 있으면 teamList 포함
+console.log(Object.getOwnPropertyNames(team)) // static이 있으면 teamList는 제외
+const fcTiger = SportsTeam.createTeam('soccer', 'lee', 'seoul')
+const fcSnake = SportsTeam.createTeam('soccer', 'park', 'seoul')
+console.log(fcTiger) // SoccerTeam
+console.log(SportsTeam.teamList) // array length:2
+SportsTeam.deleteTeam(fcSnake)
+console.log(SportsTeam.teamList) // array length:1
 
